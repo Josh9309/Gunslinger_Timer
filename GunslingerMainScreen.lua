@@ -1,4 +1,5 @@
 local composer = require( "composer" )
+local widget = require("widget")
 local scene = composer.newScene()
  
 ---------------------------------------------------------------------------------
@@ -11,6 +12,15 @@ local scene = composer.newScene()
 ---------------------------------------------------------------------------------
  
 -- "scene:create()"
+--Function to handle button events
+local function handleStartButtonEvent(event)
+	local phase = event.phase
+	if "ended" == phase then
+		print("You pressed and released the start button!")
+		composer.gotoScene("GunslingerTimerScreen")
+	end
+end
+
 function scene:create( event )
  
    local sceneGroup = self.view
@@ -19,7 +29,33 @@ function scene:create( event )
    -- Example: add display objects to "sceneGroup", add touch listeners, etc.
 	
 	local background = display.newImageRect("oldPaper.jpg", 640, 1136) --gunslinger background image
+	local title = display.newImageRect("title.png", 350, 80)
+	title.x = display.contentCenterX
+	title.y = display.contentCenterY -200
+	local skull = display.newImageRect("skull.jpg", 200, 250)
+	skull.x = display.contentCenterX
+	skull.y = display.contentCenterY
+	
+	local start = widget.newButton
+	{
+		left = display.contentCenterX,
+		top = display.contentCenterY,
+		top = 80,
+		width = 325,
+		defaultFile = "Start_Game_Btn.png",
+		overFile = "Start_Game_Btn.png",
+		label = "";
+		onEvent = handleStartButtonEvent,
+	}
+	start.x = display.contentCenterX;
+	start.y = display.contentCenterY + 200;
+	
+	--Add all display objects to the scene
 	sceneGroup:insert(background)
+	sceneGroup:insert(title)
+	sceneGroup:insert(skull)
+	
+	
 end
  
 -- "scene:show()"
