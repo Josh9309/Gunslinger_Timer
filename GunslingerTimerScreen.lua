@@ -42,6 +42,10 @@ local function Update()
 		end
 		
 		print(timerNum)
+		if timerNum == 5 or timerNum == 0 then 
+			audio.play(sounds["westernShot"])
+		end
+		
 		timerImage:removeSelf()
 		timerImage = display.newImageRect(timerArray[timerNum], 200, 250)
 		timerImage.x = display.contentCenterX
@@ -96,6 +100,13 @@ function scene:create( event )
 	}
 	startTimer.x = display.contentCenterX;
 	startTimer.y = display.contentCenterY + 200;
+	
+	--Audio Loading
+	sounds = {
+		westernShot = audio.loadSound("shot1.mp3")
+	}
+	local highNoon = audio.loadStream("highNoon.mp3")
+	audio.play(highNoon)
 	
 	--Add all display objects to the scene
 	sceneGroup:insert(background)
